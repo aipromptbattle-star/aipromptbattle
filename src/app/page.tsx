@@ -225,18 +225,90 @@ function PrizeCounter() {
 
 
 function RegisterModal({ onClose }: { onClose: () => void }) {
+  const [progress, setProgress] = useState(0);
+  const [statusText, setStatusText] = useState("INITIALIZING BATTLE PORTAL...");
+  const isFormConfigured = REGISTRATION_LINK && REGISTRATION_LINK !== "YOUR_GOOGLE_FORM_LINK";
+
   useEffect(() => {
-    const t = setTimeout(() => {
+    const startTime = Date.now();
+    const duration = 2400;
+
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const pct = Math.min(100, Math.round((elapsed / duration) * 100));
+      setProgress(pct);
+
+      if (pct < 35) {
+        setStatusText("INITIALIZING BATTLE PORTAL...");
+      } else if (pct < 70) {
+        setStatusText("CONNECTING TO SJBIT VIGYANTRA...");
+      } else if (pct < 98) {
+        setStatusText(isFormConfigured ? "PREPARING REGISTRATION FORM..." : "CHECKING REGISTRATION STATUS...");
+      } else {
+        setStatusText(isFormConfigured ? "REDIRECTING NOW..." : "REGISTRATION LINK COMING SOON!");
+      }
+
+      if (pct >= 100) {
+        clearInterval(interval);
+        if (isFormConfigured) {
+          setTimeout(() => {
+            window.open(REGISTRATION_LINK, "_blank", "noopener,noreferrer");
+            onClose();
+          }, 350);
+        }
+      }
+    }, 30);
+
+    return () => clearInterval(interval);
+  }, [onClose, isFormConfigured]);
+
+  const handleManualOpen = () => {
+    if (isFormConfigured) {
       window.open(REGISTRATION_LINK, "_blank", "noopener,noreferrer");
-      onClose();
-    }, 2200);
-    return () => clearTimeout(t);
-  }, [onClose]);
+    }
+    onClose();
+  };
+
   return (
     <div className="register-modal-overlay" onClick={onClose} role="dialog" aria-modal="true">
-      <div className="register-modal-inner" onClick={(e) => e.stopPropagation()}>
-        <KineticTextLoader text="Loading" className="!text-white [&_p]:!text-white [&_div]:!bg-white" />
-        <p className="register-modal-sub">Redirecting to registration…</p>
+      <div className="register-modal-card" onClick={(e) => e.stopPropagation()}>
+        <button className="register-modal-close" onClick={onClose} aria-label="Close modal">✕</button>
+        
+        {/* Animated Quantum Scanner Core */}
+        <div className="reg-loader-core" aria-hidden="true">
+          <div className="reg-loader-ring reg-loader-ring--outer" />
+          <div className="reg-loader-ring reg-loader-ring--inner" />
+          <div className="reg-loader-pulse" />
+          <div className="reg-loader-node">
+            <span className="reg-loader-pct">{progress}%</span>
+          </div>
+        </div>
+
+        <div className="reg-modal-content">
+          <span className="reg-modal-tag">SJBIT × VIGYANTRA 2026</span>
+          <h3 className="reg-modal-title">{statusText}</h3>
+          
+          {/* Progress track */}
+          <div className="reg-progress-track">
+            <div className="reg-progress-bar" style={{ width: `${progress}%` }} />
+          </div>
+
+          <p className="reg-modal-desc">
+            {isFormConfigured
+              ? "Redirecting you to the official Google Form registration page…"
+              : "Registration link will be updated here shortly by coordinators."}
+          </p>
+
+          {isFormConfigured ? (
+            <button className="reg-fallback-btn" onClick={handleManualOpen}>
+              Click here if not redirected automatically →
+            </button>
+          ) : (
+            <button className="reg-fallback-btn" onClick={onClose}>
+              Close
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -696,7 +768,7 @@ export default function Home() {
               <MaskedAvatars
                 avatars={[
                   { avatar: "/hemanth.jpg", name: "Hemanth U" },
-                  { avatar: "https://api.dicebear.com/9.x/initials/svg?seed=Ayush&backgroundColor=0a0a0f&textColor=e5e7eb&fontSize=40", name: "Ayush" },
+                  { avatar: "/ayush.jpg", name: "A.Aayush Sharma" },
                 ]}
                 size={96} column={52} ringed={true} movement={0.85} blurOnRest={true}
               />
@@ -704,7 +776,7 @@ export default function Home() {
             <div className="coords-info-row">
               <div className="coord-card"><span className="coord-name">HEMANTH U</span><a href="tel:9916749639" className="coord-phone">📞 9916749639</a></div>
               <div className="coords-divider" aria-hidden="true" />
-              <div className="coord-card"><span className="coord-name">AYUSH</span><a href="tel:9008016477" className="coord-phone">📞 9008016477</a></div>
+              <div className="coord-card"><span className="coord-name">A.AAYUSH SHARMA</span><a href="tel:9008016477" className="coord-phone">📞 9008016477</a></div>
             </div>
           </div>
         </section>

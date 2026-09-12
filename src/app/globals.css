@@ -1944,38 +1944,197 @@ body {
 .register-modal-overlay {
   position: fixed;
   inset: 0;
-  z-index: 9999;
-  background: rgba(0,0,0,0.88);
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.88);
   backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: modal-in 0.3s ease;
+  padding: 1.5rem;
+  animation: modal-in 0.25s ease-out;
 }
 
 @keyframes modal-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
-.register-modal-inner {
+.register-modal-card {
+  width: min(440px, 92vw);
+  background: rgba(10, 10, 14, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 2.2rem 1.8rem 1.8rem;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.8), 0 0 32px rgba(255, 255, 255, 0.04);
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.2rem;
+  text-align: center;
+  overflow: hidden;
 }
 
-.register-modal-sub {
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 2px;
+.register-modal-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+}
+
+.register-modal-close {
+  position: absolute;
+  top: 0.9rem;
+  right: 1.1rem;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.4);
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+.register-modal-close:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Quantum Scanner Core ── */
+.reg-loader-core {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.reg-loader-ring {
+  position: absolute;
+  border-radius: 50%;
+}
+.reg-loader-ring--outer {
+  inset: 0;
+  border: 2px dashed rgba(229, 231, 235, 0.35);
+  border-top-color: #fff;
+  animation: reg-spin 3s linear infinite;
+}
+.reg-loader-ring--inner {
+  inset: 8px;
+  border: 2px solid transparent;
+  border-left-color: rgba(229, 231, 235, 0.8);
+  border-right-color: rgba(229, 231, 235, 0.2);
+  animation: reg-spin-rev 1.8s linear infinite;
+}
+.reg-loader-pulse {
+  position: absolute;
+  inset: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+  animation: reg-pulse 1.2s ease-in-out infinite alternate;
+}
+.reg-loader-node {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.reg-loader-pct {
+  font-size: 0.85rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes reg-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes reg-spin-rev {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+@keyframes reg-pulse {
+  from { opacity: 0.4; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1.15); }
+}
+
+/* ── Content & Progress Track ── */
+.reg-modal-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.reg-modal-tag {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #687280;
   text-transform: uppercase;
-  margin: 0;
+  margin-bottom: 0.4rem;
 }
-
-/* Force kinetic loader letters white */
-.register-modal-inner p { color: #fff !important; }
-.register-modal-inner > div > div { background: #fff !important; }
+.reg-modal-title {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #fff;
+  margin: 0;
+  min-height: 1.6rem;
+  text-transform: uppercase;
+  text-shadow: 0 0 16px rgba(255, 255, 255, 0.2);
+}
+.reg-progress-track {
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 1.1rem 0 0.8rem;
+}
+.reg-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #687280, #FFFFFF);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+  transition: width 0.05s linear;
+}
+.reg-modal-desc {
+  font-size: 0.75rem;
+  color: rgba(229, 231, 235, 0.5);
+  line-height: 1.4;
+  margin: 0 0 1.2rem;
+}
+.reg-fallback-btn {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #E5E7EB;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+.reg-fallback-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
 
 /* ============================================================
    EVENT DETAILS — LineHoverLink styling
