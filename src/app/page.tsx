@@ -412,8 +412,19 @@ export default function Home() {
 
       {loading && (
         <div className="cin-loader" aria-live="polite">
+          <div className="cin-loader__bg" aria-hidden="true" />
           <div className="cin-loader__inner">
-            <FlipText className="cin-loader__text" duration={0.75} delay={0.12} loop={false}>vigyantra</FlipText>
+            <div className="cin-loader__line cin-loader__line--top" aria-hidden="true" />
+            <div className="cin-loader__wordmark">
+              {"VIGYANTRA".split("").map((ch, i) => (
+                <span key={i} className="cin-loader__char" style={{ animationDelay: `${0.05 + i * 0.07}s` }}>{ch}</span>
+              ))}
+            </div>
+            <div className="cin-loader__sub">
+              <span className="cin-loader__x">× AI</span>
+              <span className="cin-loader__year">2026</span>
+            </div>
+            <div className="cin-loader__line cin-loader__line--bottom" aria-hidden="true" />
           </div>
         </div>
       )}
@@ -628,25 +639,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* FINAL CTA */}
-        <section className="fca-section" id="register" aria-label="Registration">
-          <div className="fca-glow" aria-hidden="true" />
-          <div className="fca-inner">
-            <span className="cin-label-sm">THE FINAL CALL</span>
-            <h2 className="fca-h2">READY TO<br />ENTER?</h2>
-            <p className="fca-sub">Bring your ideas. Build your prompts. Make your impact.</p>
-            <div className="fca-meta">
-              <span>30 OCTOBER 2026</span><span className="fca-dot">·</span>
-              <span>SJBIT, BENGALURU</span>
-            </div>
-            <TypingLine lines={CTA_PROMPTS} prefix="›" className="typer--cta" startDelay={500} />
-            <CreepyButton onClick={openRegister} className="text-lg" coverClassName="!bg-[#E5E7EB] !text-[#0A0A0F] font-extrabold tracking-widest !text-base px-8 py-3">
-              REGISTER NOW →
-            </CreepyButton>
-          </div>
-        </section>
-
-        {/* FAQ */}
         {/* GENERAL RULES */}
         <section className="coords-section" aria-label="General Rules">
           <div className="coords-inner">
@@ -675,6 +667,24 @@ export default function Home() {
             <div className="faq-list">
               {FAQS.map((item, i) => <FaqItem key={i} q={item.q} a={item.a} />)}
             </div>
+          </div>
+        </section>
+
+        {/* FINAL CTA */}
+        <section className="fca-section" id="register" aria-label="Registration">
+          <div className="fca-glow" aria-hidden="true" />
+          <div className="fca-inner">
+            <span className="cin-label-sm">THE FINAL CALL</span>
+            <h2 className="fca-h2">READY TO<br />ENTER?</h2>
+            <p className="fca-sub">Bring your ideas. Build your prompts. Make your impact.</p>
+            <div className="fca-meta">
+              <span>30 OCTOBER 2026</span><span className="fca-dot">·</span>
+              <span>SJBIT, BENGALURU</span>
+            </div>
+            <TypingLine lines={CTA_PROMPTS} prefix="›" className="typer--cta" startDelay={500} />
+            <CreepyButton onClick={openRegister} className="text-lg" coverClassName="!bg-[#E5E7EB] !text-[#0A0A0F] font-extrabold tracking-widest !text-base px-8 py-3">
+              REGISTER NOW →
+            </CreepyButton>
           </div>
         </section>
 

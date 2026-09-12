@@ -198,30 +198,7 @@ body {
 }
 
 /* ── Loading Screen ─────────────────────────────────────── */
-.cin-loader {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #000;
-  transition: opacity 0.9s ease, visibility 0.9s ease;
-}
 
-.cin-loader--out {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.cin-loader__text {
-  font-size: clamp(3rem, 11vw, 8rem);
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #fff;
-}
 
 /* ============================================================
    NAVIGATION
@@ -2613,4 +2590,111 @@ body {
 }
 .info-section__inner {
   align-items: flex-start !important;
+}
+/* ============================================================
+   CINEMATIC INTRO LOADER — VIGYANTRA 2026
+   ============================================================ */
+
+/* Override old loader */
+.cin-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  animation: loader-exit 0.7s ease-in 2.8s forwards;
+  overflow: hidden;
+}
+@keyframes loader-exit {
+  0%   { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.04); pointer-events: none; }
+}
+
+/* Subtle noise bg */
+.cin-loader__bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(229,231,235,0.04) 0%, transparent 70%);
+  animation: loader-glow-pulse 1.5s ease-in-out infinite alternate;
+}
+@keyframes loader-glow-pulse {
+  from { opacity: 0.5; }
+  to   { opacity: 1; }
+}
+
+.cin-loader__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+}
+
+/* Horizontal sweep lines */
+.cin-loader__line {
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(229,231,235,0.5), transparent);
+  animation: loader-line-expand 0.6s ease-out 0.1s forwards;
+}
+.cin-loader__line--bottom {
+  animation-delay: 0.15s;
+}
+@keyframes loader-line-expand {
+  from { width: 0; opacity: 0; }
+  to   { width: min(420px, 80vw); opacity: 1; }
+}
+
+/* Main wordmark */
+.cin-loader__wordmark {
+  display: flex;
+  gap: 0.05em;
+  overflow: hidden;
+}
+
+/* Each letter drops in */
+.cin-loader__char {
+  display: inline-block;
+  font-size: clamp(3rem, 12vw, 7rem);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #fff;
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(229,231,235,0.25);
+  opacity: 0;
+  transform: translateY(-40px) scaleY(1.15);
+  animation: loader-char-drop 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes loader-char-drop {
+  0%   { opacity: 0; transform: translateY(-40px) scaleY(1.15); }
+  60%  { opacity: 1; transform: translateY(4px) scaleY(0.97); }
+  100% { opacity: 1; transform: translateY(0) scaleY(1); }
+}
+
+/* Sub row: × AI  ·  2026 */
+.cin-loader__sub {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  opacity: 0;
+  animation: loader-sub-fade 0.5s ease-out 0.85s forwards;
+}
+@keyframes loader-sub-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.cin-loader__x {
+  font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: rgba(229,231,235,0.5);
+  text-transform: uppercase;
+}
+.cin-loader__year {
+  font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+  font-weight: 800;
+  letter-spacing: 6px;
+  color: rgba(229,231,235,0.35);
 }
