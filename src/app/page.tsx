@@ -9,7 +9,6 @@ import { LineHoverLink } from "@/components/ui/line-hover-link";
 import { KineticTextLoader } from "@/components/ui/kinetic-text-loader";
 import { AsciiGlitchRipple } from "@/components/ui/ascii-glitch-ripple";
 import { NeuralNetworkCanvas } from "@/components/ui/neural-network-canvas";
-import { HowItWorks } from "@/components/ui/how-it-works";
 import { CircuitConnector } from "@/components/ui/circuit-connector";
 import Lenis from "lenis";
 import { gsap } from "gsap";
@@ -598,12 +597,6 @@ export default function Home() {
             <TypingLine lines={ARENA_PROMPTS} prefix="✦" className="typer--editorial" startDelay={400} />
           </div>
         </section>
-
-        {/* [REVERTIBLE MODULE] 🔵 DATA CONDUIT */}
-        <CircuitConnector label="SYNAPSE PIPELINE" />
-
-        {/* [REVERTIBLE MODULE] ✍️ HOW IT WORKS: PROMPT -> AI -> RESULT */}
-        <HowItWorks />
 
         {/* [REVERTIBLE MODULE] 🔵 DATA CONDUIT */}
         <CircuitConnector label="ARENA TELEMETRY" />
