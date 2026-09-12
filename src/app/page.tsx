@@ -8,6 +8,9 @@ import { CreepyButton } from "@/components/ui/creepy-button";
 import { LineHoverLink } from "@/components/ui/line-hover-link";
 import { KineticTextLoader } from "@/components/ui/kinetic-text-loader";
 import { AsciiGlitchRipple } from "@/components/ui/ascii-glitch-ripple";
+import { NeuralNetworkCanvas } from "@/components/ui/neural-network-canvas";
+import { HowItWorks } from "@/components/ui/how-it-works";
+import { CircuitConnector } from "@/components/ui/circuit-connector";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -472,7 +475,7 @@ export default function Home() {
             <button className="mobile-nav-close" onClick={() => setMobileOpen(false)} aria-label="Close menu">✕</button>
             <a href="#top"           className="mobile-nav-link" onClick={(e) => smoothTo(e, "top")}>HOME</a>
             <a href="#event-details" className="mobile-nav-link" onClick={(e) => smoothTo(e, "event-details")}>ABOUT</a>
-            <a href="#coordinators"  className="mobile-nav-link" onClick={(e) => smoothTo(e, "coordinators")}>TEAM</a>
+            <a href="#coordinators"  className="mobile-nav-link" onClick={(e) => smoothTo(e, "coordinators")}>COORDINATORS</a>
             <a href="#faq"           className="mobile-nav-link" onClick={(e) => smoothTo(e, "faq")}>FAQ</a>
             <a href="#register"      className="mobile-nav-link" onClick={(e) => smoothTo(e, "register")}>REGISTER</a>
             <CreepyButton onClick={() => { setMobileOpen(false); openRegister(); }} coverClassName="!bg-[#E5E7EB] !text-[#0A0A0F] font-extrabold tracking-widest text-sm w-full justify-center">
@@ -506,7 +509,7 @@ export default function Home() {
         <a href="#top" className="cin-nav__brand" onClick={(e) => smoothTo(e, "top")}>VIGYANTRA <span>× AI</span></a>
         <div className="cin-nav__links">
           <LineHoverLink variant="slide" href="#event-details" onClick={(e) => smoothTo(e as React.MouseEvent<HTMLAnchorElement>, "event-details")} className="cin-nav__link">ABOUT</LineHoverLink>
-          <LineHoverLink variant="slide" href="#coordinators"  onClick={(e) => smoothTo(e as React.MouseEvent<HTMLAnchorElement>, "coordinators")}  className="cin-nav__link">TEAM</LineHoverLink>
+          <LineHoverLink variant="slide" href="#coordinators"  onClick={(e) => smoothTo(e as React.MouseEvent<HTMLAnchorElement>, "coordinators")}  className="cin-nav__link">COORDINATORS</LineHoverLink>
           <LineHoverLink variant="slide" href="#faq"           onClick={(e) => smoothTo(e as React.MouseEvent<HTMLAnchorElement>, "faq")}           className="cin-nav__link">FAQ</LineHoverLink>
           <CreepyButton onClick={openRegister} className="!min-w-0 text-xs" coverClassName="!bg-[#E5E7EB] !text-[#0A0A0F] font-extrabold tracking-widest !text-xs !px-4 !py-1.5 !rounded-full">
             REGISTER
@@ -570,6 +573,14 @@ export default function Home() {
           </div>
         </div>
 
+        {/* [REVERTIBLE MODULE] 🧠 AI NEURAL NETWORK */}
+        <div className="relative w-full h-[150px] md:h-[190px] bg-black border-b border-white/5" aria-hidden="true">
+          <NeuralNetworkCanvas className="h-full" />
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <span className="font-mono text-[0.6rem] tracking-[4px] text-white/35 uppercase px-3 py-1 bg-black/60 rounded border border-white/10">NEURAL SYNAPSE GRID · INFERENCE ACTIVE</span>
+          </div>
+        </div>
+
         {/* EDITORIAL 1 */}
         <section ref={ed1Ref} className="ed-section" id="event-section" aria-label="Editorial">
           <div className="ed-block">
@@ -587,6 +598,15 @@ export default function Home() {
             <TypingLine lines={ARENA_PROMPTS} prefix="✦" className="typer--editorial" startDelay={400} />
           </div>
         </section>
+
+        {/* [REVERTIBLE MODULE] 🔵 DATA CONDUIT */}
+        <CircuitConnector label="SYNAPSE PIPELINE" />
+
+        {/* [REVERTIBLE MODULE] ✍️ HOW IT WORKS: PROMPT -> AI -> RESULT */}
+        <HowItWorks />
+
+        {/* [REVERTIBLE MODULE] 🔵 DATA CONDUIT */}
+        <CircuitConnector label="ARENA TELEMETRY" />
 
         {/* PROMPT ARENA */}
         <section ref={promptArenaRef} className="prompt-arena" aria-label="Prompt examples">
@@ -742,12 +762,15 @@ export default function Home() {
           </div>
         </section>
 
+        {/* [REVERTIBLE MODULE] 🔵 DATA CONDUIT */}
+        <CircuitConnector label="REGISTRATION TERMINAL" />
+
         {/* FINAL CTA */}
         <section className="fca-section" id="register" aria-label="Registration">
           <div className="fca-glow" aria-hidden="true" />
           <div className="fca-inner">
             <span className="cin-label-sm">THE FINAL CALL</span>
-            <h2 className="fca-h2">READY TO<br />ENTER?</h2>
+            <h2 className="fca-h2">READY TO<br />BATTLE?</h2>
             <p className="fca-sub">Bring your ideas. Build your prompts. Make your impact.</p>
             <div className="fca-meta">
               <span>30 OCTOBER 2026</span><span className="fca-dot">·</span>

@@ -2861,3 +2861,233 @@ body {
 .info-section {
   scroll-margin-top: 5rem;
 }
+/* ============================================================
+   CIRCUIT CONNECTORS — Inter-section data traces
+   ============================================================ */
+.circuit-connector-wrap {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  pointer-events: none;
+}
+
+.circuit-connector-line {
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.15), rgba(255,255,255,0.04));
+  position: relative;
+}
+
+.circuit-connector-packet {
+  position: absolute;
+  top: 0;
+  left: -2px;
+  width: 5px;
+  height: 14px;
+  border-radius: 999px;
+  background: #E5E7EB;
+  box-shadow: 0 0 10px #FFFFFF, 0 0 20px rgba(255,255,255,0.8);
+  animation: packet-flow 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes packet-flow {
+  0%   { top: -14px; opacity: 0; }
+  25%  { opacity: 1; }
+  75%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.circuit-connector-label {
+  position: absolute;
+  font-family: monospace;
+  font-size: 0.55rem;
+  letter-spacing: 3px;
+  color: rgba(229, 231, 235, 0.25);
+  text-transform: uppercase;
+  background: #000;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================================
+   HOW IT WORKS — Pipeline visualizer
+   ============================================================ */
+.hiw-section {
+  padding: clamp(4rem, 9vh, 7rem) clamp(1.25rem, 5vw, 4rem);
+  background: #000;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+}
+
+.hiw-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.hiw-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.hiw-title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 0.95;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 0 30px rgba(229, 231, 235, 0.15);
+}
+
+.hiw-subtitle {
+  font-size: 0.95rem;
+  color: #9CA3AF;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.hiw-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.hiw-card-wrap {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.hiw-card {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.8rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.2rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.hiw-card:hover {
+  border-color: rgba(229, 231, 235, 0.3);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(229, 231, 235, 0.05);
+  transform: translateY(-3px);
+}
+
+.hiw-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hiw-card-num {
+  font-family: monospace;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #687280;
+  letter-spacing: 2px;
+}
+
+.hiw-card-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.hiw-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.hiw-card-sub {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #9CA3AF;
+  text-transform: uppercase;
+}
+
+.hiw-card-label {
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: #fff;
+  margin: 0;
+}
+
+.hiw-card-desc {
+  font-size: 0.85rem;
+  color: rgba(229, 231, 235, 0.6);
+  line-height: 1.5;
+  margin: 0.4rem 0 0;
+}
+
+.hiw-card-meta {
+  font-size: 0.65rem;
+  font-family: monospace;
+  color: #687280;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 0.8rem;
+}
+
+.hiw-card-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #E5E7EB;
+  box-shadow: 0 0 6px #fff;
+}
+
+.hiw-connector {
+  display: none;
+}
+
+/* ============================================================
+   TEXT OVERFLOW & RESPONSIVE GUARDS
+   ============================================================ */
+.section-heading-left,
+.prize-title,
+.rules-panel__title,
+.faq-title,
+.fca-h2,
+.coords-title {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+}
+
+@media (max-width: 640px) {
+  .section-heading-left,
+  .prize-title,
+  .rules-panel__title,
+  .faq-title,
+  .fca-h2,
+  .coords-title {
+    font-size: clamp(2.2rem, 10vw, 3.4rem) !important;
+    line-height: 1.05 !important;
+  }
+}
