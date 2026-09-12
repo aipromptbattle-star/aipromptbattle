@@ -471,7 +471,7 @@ export default function Home() {
           <div className="mobile-nav-drawer" onClick={e => e.stopPropagation()}>
             <button className="mobile-nav-close" onClick={() => setMobileOpen(false)} aria-label="Close menu">✕</button>
             <a href="#top"           className="mobile-nav-link" onClick={(e) => smoothTo(e, "top")}>HOME</a>
-            <a href="#event-section" className="mobile-nav-link" onClick={(e) => smoothTo(e, "event-section")}>ABOUT</a>
+            <a href="#event-details" className="mobile-nav-link" onClick={(e) => smoothTo(e, "event-details")}>ABOUT</a>
             <a href="#coordinators"  className="mobile-nav-link" onClick={(e) => smoothTo(e, "coordinators")}>TEAM</a>
             <a href="#faq"           className="mobile-nav-link" onClick={(e) => smoothTo(e, "faq")}>FAQ</a>
             <a href="#register"      className="mobile-nav-link" onClick={(e) => smoothTo(e, "register")}>REGISTER</a>
@@ -505,7 +505,7 @@ export default function Home() {
       <nav ref={navRef} className="cin-nav cin-nav--scroll" aria-label="Main navigation">
         <a href="#top" className="cin-nav__brand" onClick={(e) => smoothTo(e, "top")}>VIGYANTRA <span>× AI</span></a>
         <div className="cin-nav__links">
-          <LineHoverLink variant="slide" href="#event-section" onClick={(e) => smoothTo(e as React.MouseEvent<HTMLAnchorElement>, "event-section")} className="cin-nav__link">ABOUT</LineHoverLink>
+          <LineHoverLink variant="slide" href="#event-details" onClick={(e) => smoothTo(e as React.MouseEvent<HTMLAnchorElement>, "event-details")} className="cin-nav__link">ABOUT</LineHoverLink>
           <LineHoverLink variant="slide" href="#coordinators"  onClick={(e) => smoothTo(e as React.MouseEvent<HTMLAnchorElement>, "coordinators")}  className="cin-nav__link">TEAM</LineHoverLink>
           <LineHoverLink variant="slide" href="#faq"           onClick={(e) => smoothTo(e as React.MouseEvent<HTMLAnchorElement>, "faq")}           className="cin-nav__link">FAQ</LineHoverLink>
           <CreepyButton onClick={openRegister} className="!min-w-0 text-xs" coverClassName="!bg-[#E5E7EB] !text-[#0A0A0F] font-extrabold tracking-widest !text-xs !px-4 !py-1.5 !rounded-full">
@@ -649,7 +649,7 @@ export default function Home() {
         </section>
 
         {/* EVENT DETAILS */}
-        <section className="info-section" aria-label="Event details">
+        <section className="info-section" id="event-details" aria-label="Event details">
           <div className="info-section__inner">
             <h2 className="section-heading-left">EVENT DETAILS</h2>
             <div className="ev-details-grid ev-details-grid--hover">

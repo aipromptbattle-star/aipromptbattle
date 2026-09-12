@@ -2857,3 +2857,7 @@ body {
   letter-spacing: 6px;
   color: rgba(229,231,235,0.35);
 }
+
+.info-section {
+  scroll-margin-top: 5rem;
+}
