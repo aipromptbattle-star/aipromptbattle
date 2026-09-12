@@ -163,8 +163,8 @@ export function MaskedAvatars({
                                         role="img"
                                         aria-label={person.name}
                                         style={{
-                                            maskImage: index === 0 ? "none" : maskImage,
-                                            WebkitMaskImage: index === 0 ? "none" : maskImage,
+                                            maskImage: (index === 0 || column >= size) ? "none" : maskImage,
+                                            WebkitMaskImage: (index === 0 || column >= size) ? "none" : maskImage,
                                             maskSize: "100% 400%",
                                             WebkitMaskSize: "100% 400%",
                                             maskRepeat: "no-repeat",

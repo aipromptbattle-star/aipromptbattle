@@ -770,7 +770,7 @@ export default function Home() {
                   { avatar: "/hemanth.jpg", name: "Hemanth U" },
                   { avatar: "/ayush.jpg", name: "A.Aayush Sharma" },
                 ]}
-                size={96} column={52} ringed={true} movement={0.85} blurOnRest={true}
+                size={96} column={98} ringed={true} movement={0.85} blurOnRest={true}
               />
             </div>
             <div className="coords-info-row">
