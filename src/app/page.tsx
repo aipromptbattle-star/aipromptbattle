@@ -796,6 +796,20 @@ export default function Home() {
             </div>
           </div>
         </section>
+        {/* LOCATION */}
+        <section className="location-section info-section" id="location" aria-label="Location">
+          <div className="location-inner" style={{ textAlign: "center", padding: "6rem 1rem 4rem", borderTop: "1px solid rgba(255,255,255,0.08)", marginTop: "2rem" }}>
+            <span className="cin-label-sm" style={{ display: "block", marginBottom: "1rem", letterSpacing: "4px" }}>VENUE / LOCATION</span>
+            <h2 style={{ fontSize: "clamp(1.5rem, 4vw, 2.5rem)", marginBottom: "1rem", letterSpacing: "2px", fontWeight: "700" }}>SJB INSTITUTE OF TECHNOLOGY</h2>
+            <p style={{ color: "rgba(255,255,255,0.6)", marginBottom: "2.5rem", fontSize: "1rem", maxWidth: "500px", margin: "0 auto 2.5rem", lineHeight: "1.6" }}>
+              BGS Health & Education City, Dr. Vishnuvardhan Road, Kengeri, Bengaluru, Karnataka 560060
+            </p>
+            <CreepyButton 
+              text="OPEN IN MAPS" 
+              onClick={() => window.open("https://www.google.com/maps/place/SJB+Institute+of+Technology,+Bengaluru/", "_blank", "noopener,noreferrer")} 
+            />
+          </div>
+        </section>
 
       </main>
 
