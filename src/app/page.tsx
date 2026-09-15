@@ -14,7 +14,7 @@ import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const REGISTRATION_LINK = "YOUR_GOOGLE_FORM_LINK";
+const REGISTRATION_LINK = "https://forms.gle/Nsisw8rJarwDLRb48";
 const EVENT_DATE = new Date("2026-10-30T09:00:00+05:30");
 
 const RULES = [
