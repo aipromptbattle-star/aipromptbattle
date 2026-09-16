@@ -229,7 +229,7 @@ function PrizeCounter() {
 function RegisterModal({ onClose }: { onClose: () => void }) {
   const [progress, setProgress] = useState(0);
   const [statusText, setStatusText] = useState("INITIALIZING BATTLE PORTAL...");
-  const isFormConfigured = REGISTRATION_LINK && REGISTRATION_LINK !== "YOUR_GOOGLE_FORM_LINK";
+  const isFormConfigured = Boolean(REGISTRATION_LINK && (REGISTRATION_LINK as string) !== "YOUR_GOOGLE_FORM_LINK");
 
   useEffect(() => {
     const startTime = Date.now();
@@ -356,6 +356,7 @@ export default function Home() {
   const [loading, setLoading]       = useState(true);
   const [showRegModal, setShowRegModal] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [showStickyReg, setShowStickyReg] = useState(false);
 
   const navRef         = useRef<HTMLElement>(null);
   const heroTrackRef   = useRef<HTMLElement>(null);
@@ -382,6 +383,7 @@ export default function Home() {
     if (!nav) return;
     const onScroll = () => {
       nav.classList.toggle("cin-nav--scrolled", window.scrollY > 10);
+      setShowStickyReg(window.scrollY > window.innerHeight * 0.8);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -661,35 +663,29 @@ export default function Home() {
           </div>
         </section>
 
-        {/* EVENT DETAILS */}
+        {/* EVENT DETAILS - BENTO GRID */}
         <section className="info-section" id="event-details" aria-label="Event details">
-          <div className="info-section__inner">
-            <h2 className="section-heading-left">EVENT DETAILS</h2>
-            <div className="ev-details-grid ev-details-grid--hover">
-              <div className="ev-item">
-                <span className="ev-item__k">WHEN</span>
-                <LineHoverLink variant="double" href="#" className="ev-item__v ev-hover-link">30 OCT 2026</LineHoverLink>
-              </div>
-              <div className="ev-item">
-                <span className="ev-item__k">WHERE</span>
-                <LineHoverLink variant="double" href="#" className="ev-item__v ev-hover-link">SJBIT, BENGALURU</LineHoverLink>
-              </div>
-              <div className="ev-item">
-                <span className="ev-item__k">TEAM SIZE</span>
-                <LineHoverLink variant="double" href="#" className="ev-item__v ev-hover-link">4 MEMBERS</LineHoverLink>
-              </div>
-              <div className="ev-item">
-                <span className="ev-item__k">REG FEE</span>
-                <LineHoverLink variant="double" href="#" className="ev-item__v ev-hover-link">₹400 / TEAM</LineHoverLink>
-              </div>
-              <div className="ev-item ev-item--prize">
-                <span className="ev-item__k">PRIZE POOL</span>
-                <span className="ev-item__v ev-item__v--prize">₹50,000</span>
-              </div>
+          <div className="bento-grid">
+            <div className="bento-card">
+              <span className="bento-title">Date</span>
+              <span className="bento-value">30 OCT 2026</span>
             </div>
+            <div className="bento-card">
+              <span className="bento-title">Team Size</span>
+              <span className="bento-value">4 MEMBERS</span>
+            </div>
+            <div className="bento-card">
+              <span className="bento-title">Entry Fee</span>
+              <span className="bento-value">₹400 / TEAM</span>
+            </div>
+          </div>
+          <div style={{ marginTop: '3rem', display: 'flex', justifyContent: 'center' }}>
             <TypingLine lines={INFO_PROMPTS} prefix="?" className="typer--info" startDelay={600} />
           </div>
         </section>
+
+        {/* PARALLAX DIVIDER 1 */}
+        <div className="parallax-divider" style={{ backgroundImage: "url('/event_poster.jpg')" }} />
 
         {/* EDITORIAL 2 */}
         <section ref={ed2Ref} className="ed-section ed-section--alt" aria-label="Editorial 2">
@@ -724,31 +720,33 @@ export default function Home() {
           </div>
         </section>
 
-        {/* GENERAL RULES */}
-        <section className="coords-section" aria-label="General Rules">
-          <div className="coords-inner">
-            <div className="rules-panel">
-              <div className="rules-panel__head">
-                <span className="cin-label-sm">COMPETITION</span>
-                <h3 className="rules-panel__title">GENERAL RULES.</h3>
-              </div>
-              <ol className="rules-list">
-                {RULES.map((rule, i) => (
-                  <li key={i} className="rules-list__item">
-                    <span className="rules-list__num">{String(i + 1).padStart(2, "0")}</span>
-                    <AsciiGlitchRipple as="span" className="rules-list__text rules-list__text--glitch" dur={900} spread={1.2}>{rule}</AsciiGlitchRipple>
-                  </li>
-                ))}
-              </ol>
-            </div>
+        {/* RULES & FAQ - SPLIT LAYOUT */}
+        <section id="rules" className="split-layout" style={{ marginTop: '4rem', padding: '0 1.5rem' }}>
+          <div className="sticky-side">
+            <h2 className="sticky-title">THE<br/>DIRECTIVES.</h2>
+            <p className="sticky-desc">Master the parameters to conquer the arena. Read carefully before entering.</p>
+          </div>
+          <div className="scroll-side">
+            <ol className="rules-list" style={{ marginBottom: '2rem' }}>
+              {RULES.map((rule, i) => (
+                <li key={i} className="rules-list__item">
+                  <span className="rules-list__num">{String(i + 1).padStart(2, "0")}</span>
+                  <AsciiGlitchRipple as="span" className="rules-list__text rules-list__text--glitch" dur={900} spread={1.2}>{rule}</AsciiGlitchRipple>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
 
-        {/* FAQ */}
-        <section className="faq-section" id="faq" aria-label="FAQ">
-          <div className="faq-inner">
-            <span className="cin-label-sm">GOT QUESTIONS?</span>
-            <h2 className="faq-title">FREQUENTLY<br />ASKED.</h2>
+        {/* PARALLAX DIVIDER 2 */}
+        <div className="parallax-divider" style={{ backgroundImage: "url('/parallax_core.jpg')" }} />
+
+        <section id="faq" className="split-layout" style={{ marginTop: '4rem', padding: '0 1.5rem' }}>
+          <div className="sticky-side">
+            <h2 className="sticky-title">INTEL<br/>DB.</h2>
+            <p className="sticky-desc">Frequently asked questions regarding eligibility, tools, and the battle.</p>
+          </div>
+          <div className="scroll-side">
             <div className="faq-list">
               {FAQS.map((item, i) => <FaqItem key={i} q={item.q} a={item.a} />)}
             </div>
@@ -801,13 +799,15 @@ export default function Home() {
           <div className="location-inner" style={{ textAlign: "center", padding: "6rem 1rem 4rem", borderTop: "1px solid rgba(255,255,255,0.08)", marginTop: "2rem" }}>
             <span className="cin-label-sm" style={{ display: "block", marginBottom: "1rem", letterSpacing: "4px" }}>VENUE / LOCATION</span>
             <h2 style={{ fontSize: "clamp(1.5rem, 4vw, 2.5rem)", marginBottom: "1rem", letterSpacing: "2px", fontWeight: "700" }}>SJB INSTITUTE OF TECHNOLOGY</h2>
-            <p style={{ color: "rgba(255,255,255,0.6)", marginBottom: "2.5rem", fontSize: "1rem", maxWidth: "500px", margin: "0 auto 2.5rem", lineHeight: "1.6" }}>
-              BGS Health & Education City, Dr. Vishnuvardhan Road, Kengeri, Bengaluru, Karnataka 560060
+            <p style={{ color: "rgba(255,255,255,0.6)", marginBottom: "2.5rem", fontSize: "1rem", maxWidth: "550px", margin: "0 auto 2.5rem", lineHeight: "1.6" }}>
+              No.67, BGS Health & Education City, Dr. Vishnuvardhan Rd, Kengeri, Bengaluru, Karnataka 560060
             </p>
-            <CreepyButton 
-              text="OPEN IN MAPS" 
-              onClick={() => window.open("https://www.google.com/maps/place/SJB+Institute+of+Technology,+Bengaluru/", "_blank", "noopener,noreferrer")} 
-            />
+            <CreepyButton
+              onClick={() => window.open("https://maps.app.goo.gl/tZpCVAg9Doz3dJj6A", "_blank", "noopener,noreferrer")}
+              coverClassName="!bg-[#E5E7EB] !text-[#0A0A0F] font-extrabold tracking-widest text-sm"
+            >
+              OPEN IN MAPS →
+            </CreepyButton>
           </div>
         </section>
 
@@ -817,6 +817,13 @@ export default function Home() {
         <span>AI Prompt Battle 2026 · SJBIT, Bengaluru · Vigyantra</span>
         <a href="#top" onClick={(e) => smoothTo(e, "top")}>↑ Back to top</a>
       </footer>
+
+      {/* STICKY MOBILE REGISTER BAR */}
+      <div className={`sticky-reg-bar${showStickyReg ? " sticky-reg-bar--visible" : ""}`}>
+        <button className="sticky-reg-btn" onClick={openRegister}>
+          REGISTER NOW →
+        </button>
+      </div>
     </>
   );
 }
